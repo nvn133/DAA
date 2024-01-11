@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<stdlib.h>
+int n;
+int min(int a,int b){
+  if(a>b){
+    return b;
+  }
+  else{
+    return a;
+  }
+}
+void APSP(int c[][n],int A[][n]){
+    for(int i=0;i<n;i++){
+      for(int j=0;j<n;j++){
+        A[i][j]=c[i][j];
+      }
+    }
+  for(int k=0;k<n;k++){
+    for(int i=0;i<n;i++){
+      for(int j=0;j<n;j++){
+        A[i][j]=min(A[i][j],A[i][k]+A[k][j]);
+      }
+    }
+  }
+}
+int main(){
+  // n=5;
+  // int cost[][5]={
+  // {0,3,8,999,-4},
+  // {999,0,999,1,7},
+  // {999,4,0,999,999},
+  // {2,999,-5,0,6},
+  // {999,999,999,6,0},
+  // };
+  printf("Enter no of vertices of graph:\n");
+  scanf("%d", &n);
+  int cost[n][n];
+  printf("Enter the Graph(Cost Adjacency Matrix):\n");
+  for(int i=0;i<n;i++){
+    printf("Enter distance between %d and others:\n",i);
+    for(int j=0;j<n;j++){
+      scanf("%d",&cost[i][j]);
+    } 
+  }
+  int A[n][n];
+  APSP(cost,A);
+  printf("The Shortest path from each of the vertex to all the other vertices:\n");
+  
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      printf("%d\t",A[i][j]);
+    }
+    printf("\n");
+  }
+}
